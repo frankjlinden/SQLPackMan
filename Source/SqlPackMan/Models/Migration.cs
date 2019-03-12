@@ -1,6 +1,7 @@
 ﻿using SqlPackMan.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,11 @@ namespace SqlPackMan.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string ResultText { get; set; }
-        public MigrationStatus Status { get; set; }
+        [Column(TypeName = "nvarchar(24)")]
+        public Lists.MigrationStatus Status { get; set; }
+        public Lists.Database Database { get; set; }
+        public DDSEnvironment DDSEnvironment { get; set; }
+
 
     }
 }
