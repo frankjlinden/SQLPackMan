@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,8 @@ namespace SqlPackMan.Models
     {
         public enum DbObjectType
         {
-            Table,
+            [Description("Table")]
+            Table=0,
             View,
             StoredProcedure,
             Function,

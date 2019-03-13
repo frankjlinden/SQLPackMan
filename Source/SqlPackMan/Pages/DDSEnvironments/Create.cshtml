@@ -1,0 +1,49 @@
+﻿@page
+@model SqlPackMan.Pages.DDSEnvironments.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>DDSEnvironment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DDSEnvironment.Name" class="control-label"></label>
+                <input asp-for="DDSEnvironment.Name" class="form-control" />
+                <span asp-validation-for="DDSEnvironment.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DDSEnvironment.Connection" class="control-label"></label>
+                <input asp-for="DDSEnvironment.Connection" class="form-control" />
+                <span asp-validation-for="DDSEnvironment.Connection" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DDSEnvironment.SourceDb" class="control-label"></label>
+                <input asp-for="DDSEnvironment.SourceDb" class="form-control" />
+                <span asp-validation-for="DDSEnvironment.SourceDb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DDSEnvironment.TargetDb" class="control-label"></label>
+                <input asp-for="DDSEnvironment.TargetDb" class="form-control" />
+                <span asp-validation-for="DDSEnvironment.TargetDb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,50 @@
+﻿@page
+@model SqlPackMan.Pages.PackageItems.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PackageItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PackageItem.ID" />
+            <div class="form-group">
+                <label asp-for="PackageItem.PackageId" class="control-label"></label>
+                <input asp-for="PackageItem.PackageId" class="form-control" />
+                <span asp-validation-for="PackageItem.PackageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PackageItem.DbObjectName" class="control-label"></label>
+                <input asp-for="PackageItem.DbObjectName" class="form-control" />
+                <span asp-validation-for="PackageItem.DbObjectName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PackageItem.DbObjectType" class="control-label"></label>
+                <select asp-for="PackageItem.DbObjectType" class="form-control"></select>
+                <span asp-validation-for="PackageItem.DbObjectType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PackageItem.StepNumber" class="control-label"></label>
+                <input asp-for="PackageItem.StepNumber" class="form-control" />
+                <span asp-validation-for="PackageItem.StepNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

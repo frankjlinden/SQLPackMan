@@ -1,0 +1,60 @@
+﻿@page
+@model SqlPackMan.Pages.Migrations.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Migration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Migration.ID" />
+            <div class="form-group">
+                <label asp-for="Migration.Name" class="control-label"></label>
+                <input asp-for="Migration.Name" class="form-control" />
+                <span asp-validation-for="Migration.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Migration.StartTime" class="control-label"></label>
+                <input asp-for="Migration.StartTime" class="form-control" />
+                <span asp-validation-for="Migration.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Migration.EndTime" class="control-label"></label>
+                <input asp-for="Migration.EndTime" class="form-control" />
+                <span asp-validation-for="Migration.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Migration.ResultText" class="control-label"></label>
+                <input asp-for="Migration.ResultText" class="form-control" />
+                <span asp-validation-for="Migration.ResultText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Migration.Status" class="control-label"></label>
+                <select asp-for="Migration.Status" class="form-control"></select>
+                <span asp-validation-for="Migration.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Migration.Database" class="control-label"></label>
+                <select asp-for="Migration.Database" class="form-control"></select>
+                <span asp-validation-for="Migration.Database" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
