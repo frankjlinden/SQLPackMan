@@ -1,7 +1,6 @@
 ﻿@page
 @model SqlPackMan.Pages.PackageItems.CreateModel
-
-@{
+@using SqlPackMan.Models
     ViewData["Title"] = "Create";
 }
 
@@ -19,15 +18,17 @@
                 <span asp-validation-for="PackageItem.PackageId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <select asp-for="PackageItem.DbObjectType" asp-items="Html.GetEnumSelectList<Lists.DbObjectType>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="PackageItem.DbObjectType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="PackageItem.DbObjectName" class="control-label"></label>
                 <input asp-for="PackageItem.DbObjectName" class="form-control" />
                 <span asp-validation-for="PackageItem.DbObjectName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PackageItem.DbObjectType" class="control-label"></label>
-                <select asp-for="PackageItem.DbObjectType" class="form-control"></select>
-                <span asp-validation-for="PackageItem.DbObjectType" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="PackageItem.StepNumber" class="control-label"></label>
                 <input asp-for="PackageItem.StepNumber" class="form-control" />

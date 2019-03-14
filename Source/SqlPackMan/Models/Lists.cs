@@ -11,13 +11,25 @@ namespace SqlPackMan.Models
     {
         public enum DbObjectType
         {
-            [Description("Table")]
-            Table=0,
-            View,
-            StoredProcedure,
-            Function,
-            Schema,
-            Sequence
+            [Description("U")]
+            Table = 0,
+
+            [Description("V")]
+            View = 1,
+
+            [Description("P")]
+            StoredProcedure = 2,
+
+            [Description("FN,FT,IF")]  // Where 
+            Function=3,
+
+            [Description("Sequence")]
+            SQ =4,
+
+            [Description("Schema")] // sys.schema
+            Schema=5,
+
+           
         };
         public enum Database
         {

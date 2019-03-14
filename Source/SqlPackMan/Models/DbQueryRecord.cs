@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace SqlPackMan.Models
 {
-    public class DbObject
+    public class DbQueryRecord
     {
-        public string DbObjectName { get; set; }
-        
+        public string Name { get; set; }
+        public string Type { get; set; }
+
     }
 }

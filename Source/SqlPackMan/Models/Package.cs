@@ -23,14 +23,13 @@ namespace SqlPackMan.Models
         [Column(TypeName = "nvarchar(24)")]
         public Lists.PackageStatus PackageStatus { get; set; }
         public DateTime StatusDate { get; set; }
+
+        //new schemas must be created in the Pre-Script
         public string ScriptPre { get; set; }
         public string ScriptPost { get; set; }
         List<PackageItem> Items { get; set; }
         public string ScriptItems { get; set; }
         public int StepNumber { get; set; }
-        public string Version { get; set; }
-       
-
-
+        public string Version { get; set; } 
     }
 }

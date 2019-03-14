@@ -21,6 +21,8 @@ namespace SqlPackMan.Models
         public DbSet<SqlPackMan.Models.DDSEnvironment> DDSEnvironment { get; set; }
 
         public DbSet<SqlPackMan.Models.Migration> Migration { get; set; }
+  
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -16,6 +16,5 @@ namespace SqlPackMan.Models
         public Lists.DbObjectType DbObjectType { get; set; }
         public int StepNumber { get; set; }
 
-
     }
 }
