@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace SqlPackMan.Models
 {
-    public class DbObject
+    public static class Conversions
     {
-        public string GetRedGateObjectType(string sqlType)
+        public static string GetRedGateObjectType(string sqlType)
         {
             string strReturn = "";
             switch (sqlType)
@@ -30,6 +33,5 @@ namespace ClassLibrary1
 
             return strReturn;
         }
-
     }
 }
