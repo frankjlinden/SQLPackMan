@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.DDSEnvironments
+namespace SqlPackMan.Pages.DdsEnvironments
 {
     public class IndexModel : PageModel
     {
@@ -18,11 +18,11 @@ namespace SqlPackMan.Pages.DDSEnvironments
             _context = context;
         }
 
-        public IList<DDSEnvironment> DDSEnvironment { get;set; }
+        public IList<DdsEnvironment> DdsEnvironment { get;set; }
 
         public async Task OnGetAsync()
         {
-            DDSEnvironment = await _context.DDSEnvironment.ToListAsync();
+            DdsEnvironment = await _context.DdsEnvironment.ToListAsync();
         }
     }
 }

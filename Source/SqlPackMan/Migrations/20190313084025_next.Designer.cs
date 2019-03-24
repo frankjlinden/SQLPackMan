@@ -21,7 +21,7 @@ namespace SqlPackMan.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SqlPackMan.Models.DDSEnvironment", b =>
+            modelBuilder.Entity("SqlPackMan.Models.DdsEnvironment", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -31,13 +31,13 @@ namespace SqlPackMan.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("SourceDb");
+                    b.Property<int>("SourceEnv");
 
-                    b.Property<int>("TargetDb");
+                    b.Property<int>("TargetEnv");
 
                     b.HasKey("ID");
 
-                    b.ToTable("DDSEnvironment");
+                    b.ToTable("DdsEnvironment");
                 });
 
             modelBuilder.Entity("SqlPackMan.Models.Migration", b =>
@@ -46,7 +46,7 @@ namespace SqlPackMan.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DDSEnvironmentID");
+                    b.Property<int?>("DdsEnvironmentID");
 
                     b.Property<int>("Database");
 
@@ -64,7 +64,7 @@ namespace SqlPackMan.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("DDSEnvironmentID");
+                    b.HasIndex("DdsEnvironmentID");
 
                     b.ToTable("Migration");
                 });
@@ -75,7 +75,7 @@ namespace SqlPackMan.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DDSEnvironmentId");
+                    b.Property<int>("DdsEnvironmentId");
 
                     b.Property<string>("Database")
                         .IsRequired()
@@ -87,7 +87,7 @@ namespace SqlPackMan.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("PackageStatus")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(24)");
 
@@ -131,9 +131,9 @@ namespace SqlPackMan.Migrations
 
             modelBuilder.Entity("SqlPackMan.Models.Migration", b =>
                 {
-                    b.HasOne("SqlPackMan.Models.DDSEnvironment", "DDSEnvironment")
+                    b.HasOne("SqlPackMan.Models.DdsEnvironment", "DdsEnvironment")
                         .WithMany()
-                        .HasForeignKey("DDSEnvironmentID");
+                        .HasForeignKey("DdsEnvironmentID");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,27 +9,19 @@ namespace SqlPackMan.Models
 {
     public class Package
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public int DDSEnvironmentId { get; set; }
-
-        [Column(TypeName = "nvarchar(24)")]
-        public Lists.Database Database { get; set; }
-
-        public int MaxEnvironment { get; set; }
-
-        [Column(TypeName = "nvarchar(24)")]
-        public Lists.PackageStatus PackageStatus { get; set; }
+        public int StatusId { get; set; }
         public DateTime StatusDate { get; set; }
-
-        //new schemas must be created in the Pre-Script
-        public string ScriptPre { get; set; }
-        public string ScriptPost { get; set; }
-        List<PackageItem> Items { get; set; }
-        public string ScriptItems { get; set; }
-        public int StepNumber { get; set; }
-        public string Version { get; set; } 
+        public int DdsEnvironmentId { get; set; }
+        public string DbName { get; set; }
+        public int MaxEnvironmentId { get; set; }
+        
+        //nav props
+        public StatusCode Status { get; set; }
+        public DdsEnvironment CurrentEnvironment { get;set; }
+        public ICollection<PackageItem> Items { get; set; }
+      
     }
 }

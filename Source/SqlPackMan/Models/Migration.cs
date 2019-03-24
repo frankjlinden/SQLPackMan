@@ -9,17 +9,24 @@ namespace SqlPackMan.Models
 {
     public class Migration
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
+        public int StatusId { get; set; }
         public string Name { get; set; }
-        List<Package> Packages { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public string ResultText { get; set; }
-        [Column(TypeName = "nvarchar(24)")]
-        public Lists.MigrationStatus Status { get; set; }
-        public Lists.Database Database { get; set; }
-        public DDSEnvironment DDSEnvironment { get; set; }
+        public string PreScript { get; set; }
+        public string PostScript { get; set; }
+        public string PackageScript { get; set; }
+    
+        public int DDSDatabase { get; set; }
+      
+        public int TargetEnvironment  { get; set; }
 
+        // nav props
+        public DDSDatabase Database { get; set; }
+        public DdsEnvironment   Environment { get; set; }
+        public StatusCode Status { get; set; }
+        public List<MigrationResult> MigrationResults { get; set; }
+
+        //status Error, Success
 
     }
 }

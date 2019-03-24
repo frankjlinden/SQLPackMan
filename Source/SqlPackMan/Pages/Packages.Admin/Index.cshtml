@@ -1,0 +1,102 @@
+﻿@page
+@model SqlPackMan.Pages.Packages.Admin.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].DdsEnvironmentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].Database)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].MaxEnvironment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].StatusDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].ScriptPre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].ScriptPost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].ScriptItems)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].StepNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Package[0].Version)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Package) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DdsEnvironmentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Database)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxEnvironment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScriptPre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScriptPost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScriptItems)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StepNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Version)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

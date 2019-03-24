@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SqlPackMan.Models
 {
-    public class DDSEnvironment
+    public class DdsEnvironment
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string Connection { get; set; }
-        public int SourceDb { get; set;}
-        public int TargetDb{ get; set; }
+        public string Server { get; set; }
+        public string SourceControlPath{ get; set; }
         
     }
 }

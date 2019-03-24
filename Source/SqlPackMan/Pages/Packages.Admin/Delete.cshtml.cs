@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.Migrations
+namespace SqlPackMan.Pages.Packages.Admin
 {
     public class DeleteModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace SqlPackMan.Pages.Migrations
         }
 
         [BindProperty]
-        public Migration Migration { get; set; }
+        public Package Package { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,9 @@ namespace SqlPackMan.Pages.Migrations
                 return NotFound();
             }
 
-            Migration = await _context.Migration.FirstOrDefaultAsync(m => m.ID == id);
+            Package = await _context.Package.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Migration == null)
+            if (Package == null)
             {
                 return NotFound();
             }
@@ -44,11 +44,11 @@ namespace SqlPackMan.Pages.Migrations
                 return NotFound();
             }
 
-            Migration = await _context.Migration.FindAsync(id);
+            Package = await _context.Package.FindAsync(id);
 
-            if (Migration != null)
+            if (Package != null)
             {
-                _context.Migration.Remove(Migration);
+                _context.Package.Remove(Package);
                 await _context.SaveChangesAsync();
             }
 

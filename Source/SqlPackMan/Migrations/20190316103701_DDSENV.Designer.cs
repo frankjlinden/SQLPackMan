@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SqlPackMan.Models;
 
 namespace SqlPackMan.Migrations
 {
     [DbContext(typeof(SqlPackManContext))]
-    partial class SqlPackManContextModelSnapshot : ModelSnapshot
+    [Migration("20190316103701_DDSENV")]
+    partial class DDSENV
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,34 +21,23 @@ namespace SqlPackMan.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SqlPackMan.Models.DDSDatabase", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DDSDatabase");
-                });
-
             modelBuilder.Entity("SqlPackMan.Models.DdsEnvironment", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Connection");
+
                     b.Property<string>("Name");
 
-                    b.Property<string>("Server");
+                    b.Property<string>("SourceEnv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(24)");
 
-                    b.Property<int>("SourceEnv");
-
-                    b.Property<int>("TargetEnv");
+                    b.Property<string>("TargetEnv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(24)");
 
                     b.HasKey("ID");
 
@@ -59,17 +50,15 @@ namespace SqlPackMan.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DDSDatabaseId");
+                    b.Property<int?>("DdsEnvironmentID");
+
+                    b.Property<int>("Database");
 
                     b.Property<DateTime>("EndTime");
-
-                    b.Property<string>("MyProperty");
 
                     b.Property<string>("Name");
 
                     b.Property<string>("ResultText");
-
-                    b.Property<string>("Source");
 
                     b.Property<DateTime>("StartTime");
 
@@ -79,7 +68,7 @@ namespace SqlPackMan.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("DDSDatabaseId");
+                    b.HasIndex("DdsEnvironmentID");
 
                     b.ToTable("Migration");
                 });
@@ -90,9 +79,7 @@ namespace SqlPackMan.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DdsEnvironmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(0);
+                    b.Property<int>("DdsEnvironmentId");
 
                     b.Property<string>("Database")
                         .IsRequired()
@@ -104,15 +91,15 @@ namespace SqlPackMan.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(24)");
+
                     b.Property<string>("ScriptItems");
 
                     b.Property<string>("ScriptPost");
 
                     b.Property<string>("ScriptPre");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(24)");
 
                     b.Property<DateTime>("StatusDate");
 
@@ -121,8 +108,6 @@ namespace SqlPackMan.Migrations
                     b.Property<string>("Version");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("DdsEnvironmentId");
 
                     b.ToTable("Package");
                 });
@@ -141,10 +126,6 @@ namespace SqlPackMan.Migrations
 
                     b.Property<int>("PackageId");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(24)");
-
                     b.Property<int>("StepNumber");
 
                     b.HasKey("ID");
@@ -156,18 +137,9 @@ namespace SqlPackMan.Migrations
 
             modelBuilder.Entity("SqlPackMan.Models.Migration", b =>
                 {
-                    b.HasOne("SqlPackMan.Models.DDSDatabase", "Database")
+                    b.HasOne("SqlPackMan.Models.DdsEnvironment", "DdsEnvironment")
                         .WithMany()
-                        .HasForeignKey("DDSDatabaseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SqlPackMan.Models.Package", b =>
-                {
-                    b.HasOne("SqlPackMan.Models.DdsEnvironment", "CurrentEnvironment")
-                        .WithMany()
-                        .HasForeignKey("DdsEnvironmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DdsEnvironmentID");
                 });
 
             modelBuilder.Entity("SqlPackMan.Models.PackageItem", b =>

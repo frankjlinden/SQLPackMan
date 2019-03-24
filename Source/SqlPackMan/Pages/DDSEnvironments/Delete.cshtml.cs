@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.DDSEnvironments
+namespace SqlPackMan.Pages.DdsEnvironments
 {
     public class DeleteModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace SqlPackMan.Pages.DDSEnvironments
         }
 
         [BindProperty]
-        public DDSEnvironment DDSEnvironment { get; set; }
+        public DdsEnvironment DdsEnvironment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,9 @@ namespace SqlPackMan.Pages.DDSEnvironments
                 return NotFound();
             }
 
-            DDSEnvironment = await _context.DDSEnvironment.FirstOrDefaultAsync(m => m.ID == id);
+            DdsEnvironment = await _context.DdsEnvironment.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (DDSEnvironment == null)
+            if (DdsEnvironment == null)
             {
                 return NotFound();
             }
@@ -44,11 +44,11 @@ namespace SqlPackMan.Pages.DDSEnvironments
                 return NotFound();
             }
 
-            DDSEnvironment = await _context.DDSEnvironment.FindAsync(id);
+            DdsEnvironment = await _context.DdsEnvironment.FindAsync(id);
 
-            if (DDSEnvironment != null)
+            if (DdsEnvironment != null)
             {
-                _context.DDSEnvironment.Remove(DDSEnvironment);
+                _context.DdsEnvironment.Remove(DdsEnvironment);
                 await _context.SaveChangesAsync();
             }
 

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.Migrations
+namespace SqlPackMan.Pages.Packages.Admin
 {
     public class DetailsModel : PageModel
     {
@@ -18,7 +18,7 @@ namespace SqlPackMan.Pages.Migrations
             _context = context;
         }
 
-        public Migration Migration { get; set; }
+        public Package Package { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -27,9 +27,9 @@ namespace SqlPackMan.Pages.Migrations
                 return NotFound();
             }
 
-            Migration = await _context.Migration.FirstOrDefaultAsync(m => m.ID == id);
+            Package = await _context.Package.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Migration == null)
+            if (Package == null)
             {
                 return NotFound();
             }

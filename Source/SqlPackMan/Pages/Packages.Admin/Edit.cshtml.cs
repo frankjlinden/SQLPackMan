@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.Migrations
+namespace SqlPackMan.Pages.Packages.Admin
 {
     public class EditModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace SqlPackMan.Pages.Migrations
         }
 
         [BindProperty]
-        public Migration Migration { get; set; }
+        public Package Package { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,9 @@ namespace SqlPackMan.Pages.Migrations
                 return NotFound();
             }
 
-            Migration = await _context.Migration.FirstOrDefaultAsync(m => m.ID == id);
+            Package = await _context.Package.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Migration == null)
+            if (Package == null)
             {
                 return NotFound();
             }
@@ -45,7 +45,7 @@ namespace SqlPackMan.Pages.Migrations
                 return Page();
             }
 
-            _context.Attach(Migration).State = EntityState.Modified;
+            _context.Attach(Package).State = EntityState.Modified;
 
             try
             {
@@ -53,7 +53,7 @@ namespace SqlPackMan.Pages.Migrations
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MigrationExists(Migration.ID))
+                if (!PackageExists(Package.ID))
                 {
                     return NotFound();
                 }
@@ -66,9 +66,9 @@ namespace SqlPackMan.Pages.Migrations
             return RedirectToPage("./Index");
         }
 
-        private bool MigrationExists(int id)
+        private bool PackageExists(int id)
         {
-            return _context.Migration.Any(e => e.ID == id);
+            return _context.Package.Any(e => e.ID == id);
         }
     }
 }

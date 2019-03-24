@@ -1,5 +1,5 @@
 ﻿@page
-@model SqlPackMan.Pages.DDSEnvironments.IndexModel
+@model SqlPackMan.Pages.DdsEnvironments.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,34 +14,34 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DDSEnvironment[0].Name)
+                @Html.DisplayNameFor(model => model.DdsEnvironment[0].SourceEnv)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DDSEnvironment[0].Connection)
+                @Html.DisplayNameFor(model => model.DdsEnvironment[0].Server)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DDSEnvironment[0].SourceDb)
+                @Html.DisplayNameFor(model => model.DdsEnvironment[0].SourceEnv)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DDSEnvironment[0].TargetDb)
+                @Html.DisplayNameFor(model => model.DdsEnvironment[0].TargetEnv)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.DDSEnvironment) {
+@foreach (var item in Model.DdsEnvironment) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Connection)
+                @Html.DisplayFor(modelItem => item.Server)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SourceDb)
+                @Html.DisplayFor(modelItem => item.SourceEnv)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TargetDb)
+                @Html.DisplayFor(modelItem => item.TargetEnv)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

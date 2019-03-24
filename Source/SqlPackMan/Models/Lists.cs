@@ -24,22 +24,10 @@ namespace SqlPackMan.Models
             Function=3,
 
             [Description("Sequence")]
-            SQ =4,
-
-            [Description("Schema")] // sys.schema
-            Schema=5,
-
-           
+            SQ =4
         };
-        public enum Database
-        {
-            Camris,
-            IP6,
-            LON,
-            WaitList,
-            WebResDay
-        };
-        public enum PackageStatus
+      
+        public enum Status
         {
             AdminReview,
             Current,
@@ -53,6 +41,8 @@ namespace SqlPackMan.Models
             Error,
             Queued,
             Success
-        }
+        };
+       
+
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.DDSEnvironments
+namespace SqlPackMan.Pages.DdsEnvironments
 {
     public class EditModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace SqlPackMan.Pages.DDSEnvironments
         }
 
         [BindProperty]
-        public DDSEnvironment DDSEnvironment { get; set; }
+        public DdsEnvironment DdsEnvironment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,9 @@ namespace SqlPackMan.Pages.DDSEnvironments
                 return NotFound();
             }
 
-            DDSEnvironment = await _context.DDSEnvironment.FirstOrDefaultAsync(m => m.ID == id);
+            DdsEnvironment = await _context.DdsEnvironment.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (DDSEnvironment == null)
+            if (DdsEnvironment == null)
             {
                 return NotFound();
             }
@@ -45,7 +45,7 @@ namespace SqlPackMan.Pages.DDSEnvironments
                 return Page();
             }
 
-            _context.Attach(DDSEnvironment).State = EntityState.Modified;
+            _context.Attach(DdsEnvironment).State = EntityState.Modified;
 
             try
             {
@@ -53,7 +53,7 @@ namespace SqlPackMan.Pages.DDSEnvironments
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DDSEnvironmentExists(DDSEnvironment.ID))
+                if (!DdsEnvironmentExists(DdsEnvironment.ID))
                 {
                     return NotFound();
                 }
@@ -66,9 +66,9 @@ namespace SqlPackMan.Pages.DDSEnvironments
             return RedirectToPage("./Index");
         }
 
-        private bool DDSEnvironmentExists(int id)
+        private bool DdsEnvironmentExists(int id)
         {
-            return _context.DDSEnvironment.Any(e => e.ID == id);
+            return _context.DdsEnvironment.Any(e => e.ID == id);
         }
     }
 }

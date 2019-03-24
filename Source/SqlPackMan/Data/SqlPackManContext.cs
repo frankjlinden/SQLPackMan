@@ -18,40 +18,54 @@ namespace SqlPackMan.Models
 
         public DbSet<SqlPackMan.Models.Package> Package { get; set; }
 
-        public DbSet<SqlPackMan.Models.DDSEnvironment> DDSEnvironment { get; set; }
+        public DbSet<SqlPackMan.Models.DdsEnvironment> DdsEnvironment { get; set; }
 
         public DbSet<SqlPackMan.Models.Migration> Migration { get; set; }
-  
-        
-
+               
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<Migration>()
-                .Property(e => e.Status)
-                .HasConversion(
-                    v => v.ToString(),
-                    v => (Lists.MigrationStatus)Enum.Parse(typeof(Lists.MigrationStatus), v));
-            modelBuilder
-                .Entity<Package>()
-                .Property(e => e.Database)
-                .HasConversion(
-                    v => v.ToString(),
-                    v => (Lists.Database)Enum.Parse(typeof(Lists.Database), v));
+            .Entity<DdsEnvironment>()
+            .HasIndex(p => p.Name)
+                .IsUnique();
 
             modelBuilder
-         .Entity<Package>()
-         .Property(e => e.PackageStatus)
-         .HasConversion(
-             v => v.ToString(),
-             v => (Lists.PackageStatus)Enum.Parse(typeof(Lists.PackageStatus), v));
+                .Entity<Package>()
+                .Property(e => e.DdsEnvironmentId)
+                .HasDefaultValue(0);
+
+            modelBuilder
+                .Entity<Package>()
+                .HasIndex(p => p.Name)
+                .IsUnique();
 
             modelBuilder
               .Entity<PackageItem>()
-              .Property(e => e.DbObjectType)
-              .HasConversion(
-                  v => v.ToString(),
-                  v => (Lists.DbObjectType)Enum.Parse(typeof(Lists.DbObjectType), v));
+              .Property<string>("Tags")
+             .HasField("_tags");
+
+
+
+            //modelBuilder
+            //    .Entity<Package>()
+            //    .Property(e => e.Status)
+            //    .HasConversion(
+            //        v => v.ToString(),
+            //        v => (Lists.Status)Enum.Parse(typeof(Lists.Status), v));
+
+            //modelBuilder
+            //  .Entity<PackageItem>()
+            //  .Property(e => e.DbObjectType)
+            //  .HasConversion(
+            //      v => v.ToString(),
+            //      v => (Lists.DbObjectType)Enum.Parse(typeof(Lists.DbObjectType), v));
+            //modelBuilder
+            //.Entity<PackageItem>()
+            //.Property(e => e.Status)
+            //.HasConversion(
+            //    v => v.ToString(),
+            //    v => (Lists.Status)Enum.Parse(typeof(Lists.Status), v));
+
         }
     }
 }

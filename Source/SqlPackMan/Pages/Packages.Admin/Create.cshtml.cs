@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.Migrations
+namespace SqlPackMan.Pages.Packages.Admin
 {
     public class CreateModel : PageModel
     {
@@ -24,7 +24,7 @@ namespace SqlPackMan.Pages.Migrations
         }
 
         [BindProperty]
-        public Migration Migration { get; set; }
+        public Package Package { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -33,7 +33,7 @@ namespace SqlPackMan.Pages.Migrations
                 return Page();
             }
 
-            _context.Migration.Add(Migration);
+            _context.Package.Add(Package);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

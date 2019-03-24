@@ -9,19 +9,19 @@ namespace SqlPackMan.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DDSEnvironment",
+                name: "DdsEnvironment",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Connection = table.Column<string>(nullable: true),
-                    SourceDb = table.Column<int>(nullable: false),
-                    TargetDb = table.Column<int>(nullable: false)
+                    SourceEnv = table.Column<int>(nullable: false),
+                    TargetEnv = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DDSEnvironment", x => x.ID);
+                    table.PrimaryKey("PK_DdsEnvironment", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,10 +32,10 @@ namespace SqlPackMan.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    DDSEnvironmentId = table.Column<int>(nullable: false),
+                    DdsEnvironmentId = table.Column<int>(nullable: false),
                     Database = table.Column<string>(type: "nvarchar(24)", nullable: false),
                     MaxEnvironment = table.Column<int>(nullable: false),
-                    PackageStatus = table.Column<string>(type: "nvarchar(24)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(24)", nullable: false),
                     StatusDate = table.Column<DateTime>(nullable: false),
                     ScriptPre = table.Column<string>(nullable: true),
                     ScriptPost = table.Column<string>(nullable: true),
@@ -76,23 +76,23 @@ namespace SqlPackMan.Migrations
                     ResultText = table.Column<string>(nullable: true),
                     Status = table.Column<string>(type: "nvarchar(24)", nullable: false),
                     Database = table.Column<int>(nullable: false),
-                    DDSEnvironmentID = table.Column<int>(nullable: true)
+                    DdsEnvironmentID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Migration", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Migration_DDSEnvironment_DDSEnvironmentID",
-                        column: x => x.DDSEnvironmentID,
-                        principalTable: "DDSEnvironment",
+                        name: "FK_Migration_DdsEnvironment_DdsEnvironmentID",
+                        column: x => x.DdsEnvironmentID,
+                        principalTable: "DdsEnvironment",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Migration_DDSEnvironmentID",
+                name: "IX_Migration_DdsEnvironmentID",
                 table: "Migration",
-                column: "DDSEnvironmentID");
+                column: "DdsEnvironmentID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -107,7 +107,7 @@ namespace SqlPackMan.Migrations
                 name: "PackageItem");
 
             migrationBuilder.DropTable(
-                name: "DDSEnvironment");
+                name: "DdsEnvironment");
         }
     }
 }

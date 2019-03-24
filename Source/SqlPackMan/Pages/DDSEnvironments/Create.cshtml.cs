@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.DDSEnvironments
+namespace SqlPackMan.Pages.DdsEnvironments
 {
     public class CreateModel : PageModel
     {
@@ -24,7 +24,7 @@ namespace SqlPackMan.Pages.DDSEnvironments
         }
 
         [BindProperty]
-        public DDSEnvironment DDSEnvironment { get; set; }
+        public DdsEnvironment DdsEnvironment { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -33,7 +33,7 @@ namespace SqlPackMan.Pages.DDSEnvironments
                 return Page();
             }
 
-            _context.DDSEnvironment.Add(DDSEnvironment);
+            _context.DdsEnvironment.Add(DdsEnvironment);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -8,13 +8,22 @@ namespace SqlPackMan.Models
 {
     public class PackageItem
     {
-        public int ID { get; set; }
-        public int PackageId { get; set; }
-        public string DbObjectName { get; set; }
+        private string _tags;
 
-        [Column(TypeName = "nvarchar(24)")]
-        public Lists.DbObjectType DbObjectType { get; set; }
-        public int StepNumber { get; set; }
+        public int Id { get; set; }
+        public string DbObjectName { get; set; }
+        public int PackageId { get; set; }
+        public int StatusId { get; set; }
+        public int DbObjectTypeId { get; set; }
+        
+
+        [NotMapped]
+        public HashSet<string> Tags;
+
+        //nav props
+        public Package Package { get; set; }
+        public DbObjectType DbObjectType { get; set; }
+        public StatusCode Status { get; set; }
 
     }
 }

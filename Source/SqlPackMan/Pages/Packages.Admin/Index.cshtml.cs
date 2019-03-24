@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.Migrations
+namespace SqlPackMan.Pages.Packages.Admin
 {
     public class IndexModel : PageModel
     {
@@ -18,11 +18,16 @@ namespace SqlPackMan.Pages.Migrations
             _context = context;
         }
 
-        public IList<Migration> Migration { get;set; }
+        public IList<Package> Package { get;set; }
 
         public async Task OnGetAsync()
         {
-            Migration = await _context.Migration.ToListAsync();
+            Package = await _context.Package.ToListAsync();
+
+            //Package = Package.Where(p => p.Status.Equals(Lists.Status.AdminReview)
+            //                                                    || p.Status.Equals(Lists.Status.Queued)
+            //                                                    || p.Status.Equals(Lists.Status.Error)
+            //                                                       ).ToList();
         }
     }
 }

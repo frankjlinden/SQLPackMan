@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.DDSEnvironments
+namespace SqlPackMan.Pages.DdsEnvironments
 {
     public class DetailsModel : PageModel
     {
@@ -18,7 +18,7 @@ namespace SqlPackMan.Pages.DDSEnvironments
             _context = context;
         }
 
-        public DDSEnvironment DDSEnvironment { get; set; }
+        public DdsEnvironment DdsEnvironment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -27,9 +27,9 @@ namespace SqlPackMan.Pages.DDSEnvironments
                 return NotFound();
             }
 
-            DDSEnvironment = await _context.DDSEnvironment.FirstOrDefaultAsync(m => m.ID == id);
+            DdsEnvironment = await _context.DdsEnvironment.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (DDSEnvironment == null)
+            if (DdsEnvironment == null)
             {
                 return NotFound();
             }
