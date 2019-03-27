@@ -6,13 +6,13 @@ using System.Data.SqlClient;
 
 namespace SqlPackMan.Models
 {
-    public class DbObjectDAL
+    public class ItemDAL
     {
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Master;Integrated Security=true;";
   
 
         //To View all employees details    
-        public string GetDbObjectType(string objName, string dbName)
+        public string GetItemType(string objName, string dbName)
         {
             string retValue = "";
 
@@ -31,7 +31,7 @@ namespace SqlPackMan.Models
                     while (rdr.Read())
                     {
                        
-                        retValue = Conversions.GetRedGateObjectType(rdr.GetString(0).Trim());
+                      //  retValue = Conversions.GetRedGateObjectType(rdr.GetString(0).Trim());
                        
                     }
                     con.Close();

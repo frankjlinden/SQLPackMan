@@ -12,16 +12,17 @@ namespace SqlPackMan.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int StatusId { get; set; }
+        public string Status { get; set; }
         public DateTime StatusDate { get; set; }
         public int DdsEnvironmentId { get; set; }
         public string DbName { get; set; }
         public int MaxEnvironmentId { get; set; }
         
         //nav props
-        public StatusCode Status { get; set; }
-        public DdsEnvironment CurrentEnvironment { get;set; }
-        public ICollection<PackageItem> Items { get; set; }
-      
+
+       
+        public ICollection<DbObject> Items { get; set; }
+        public ICollection<Migration> Migrations { get; set; }
+
     }
 }

@@ -10,6 +10,7 @@ namespace SqlPackMan.Models
         public int Id { get; set; }
         public string SqlType { get; set; }
         public string RGType { get; set; }
-        
+        public int MyProperty { get; set; }
+
     }
 }

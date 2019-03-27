@@ -9,7 +9,7 @@ namespace SqlPackMan.Models
 {
     public static class Lists
     {
-        public enum DbObjectType
+        public enum ItemType
         {
             [Description("U")]
             Table = 0,

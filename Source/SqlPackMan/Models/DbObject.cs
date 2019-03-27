@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace SqlPackMan.Models
 {
-    public class PackageItem
+    public class DbObject
     {
         private string _tags;
 
         public int Id { get; set; }
-        public string DbObjectName { get; set; }
+        public string ObjectName { get; set; }
         public int PackageId { get; set; }
-        public int StatusId { get; set; }
-        public int DbObjectTypeId { get; set; }
+        public string Status { get; set; }
+        public int ItemTypeId { get; set; }
         
 
         [NotMapped]
@@ -22,8 +22,6 @@ namespace SqlPackMan.Models
 
         //nav props
         public Package Package { get; set; }
-        public DbObjectType DbObjectType { get; set; }
-        public StatusCode Status { get; set; }
 
     }
 }

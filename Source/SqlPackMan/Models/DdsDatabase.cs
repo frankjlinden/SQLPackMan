@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SqlPackMan.Models
 {
-    public class DDSDatabase
+    public class DdsDatabase
     {
         public int ID { get; set; }
         public string Name { get; set; }

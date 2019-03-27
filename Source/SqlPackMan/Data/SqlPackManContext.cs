@@ -13,14 +13,15 @@ namespace SqlPackMan.Models
             : base(options)
         {
         }
-
-        public DbSet<SqlPackMan.Models.PackageItem> PackageItem { get; set; }
+       
+        public DbSet<SqlPackMan.Models.DbObject> DbObject { get; set; }
 
         public DbSet<SqlPackMan.Models.Package> Package { get; set; }
 
         public DbSet<SqlPackMan.Models.DdsEnvironment> DdsEnvironment { get; set; }
 
         public DbSet<SqlPackMan.Models.Migration> Migration { get; set; }
+        public DbSet<Status> Status { get; set; }
                
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,28 +40,14 @@ namespace SqlPackMan.Models
                 .HasIndex(p => p.Name)
                 .IsUnique();
 
-            modelBuilder
-              .Entity<PackageItem>()
-              .Property<string>("Tags")
-             .HasField("_tags");
+          
+               
+                
+                
 
-
-
+                
             //modelBuilder
-            //    .Entity<Package>()
-            //    .Property(e => e.Status)
-            //    .HasConversion(
-            //        v => v.ToString(),
-            //        v => (Lists.Status)Enum.Parse(typeof(Lists.Status), v));
-
-            //modelBuilder
-            //  .Entity<PackageItem>()
-            //  .Property(e => e.DbObjectType)
-            //  .HasConversion(
-            //      v => v.ToString(),
-            //      v => (Lists.DbObjectType)Enum.Parse(typeof(Lists.DbObjectType), v));
-            //modelBuilder
-            //.Entity<PackageItem>()
+            //.Entity<Item>()
             //.Property(e => e.Status)
             //.HasConversion(
             //    v => v.ToString(),

@@ -15,8 +15,8 @@ namespace Tests
         {
             string db = "[PackManContext-f70699d6-6d28-46ee-bc49-26e99d8c7d95]";
             string name = "Environment";
-            DbObjectDAL dal = new DbObjectDAL();
-            string type = dal.GetDbObjectType(name,db);
+            ItemDAL dal = new ItemDAL();
+            string type = dal.GetItemType(name,db);
 
 
             Assert.Pass();

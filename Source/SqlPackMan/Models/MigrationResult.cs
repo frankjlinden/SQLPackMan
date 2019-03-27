@@ -12,9 +12,13 @@ namespace SqlPackMan.Models
         public string Step { get; set; }
         public DateTime Timestamp { get; set; }
         public string ResultText { get; set; }
-        public int MigrationStatus { get; set; }
+        
+       
         public Migration Migration { get; set; }
 
+        //Step 1: PreScript
+        //Step 2: Package Script
+        //Step 3: Post Script
        //result text - not configured, error, success
     }
 }

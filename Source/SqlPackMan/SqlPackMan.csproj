@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190313081323_initial.cs" />
     <Compile Remove="Migrations\20190313081323_initial.Designer.cs" />
+    <Compile Remove="Migrations\20190325204901_initial.cs" />
+    <Compile Remove="Migrations\20190325204901_initial.Designer.cs" />
   </ItemGroup>
 
 
@@ -23,7 +25,6 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\DataModels\" />
     <Folder Include="Models\ViewModels\" />
-    <Folder Include="Pages\Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 
 namespace SqlPackMan.Migrations
 {
-    public partial class next : Migration
+    public partial class status : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
