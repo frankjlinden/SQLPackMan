@@ -10,8 +10,8 @@ using SqlPackMan.Models;
 namespace SqlPackMan.Migrations
 {
     [DbContext(typeof(SqlPackManContext))]
-    [Migration("20190326001205_status")]
-    partial class status
+    [Migration("20190405225108_version")]
+    partial class version
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,19 +27,43 @@ namespace SqlPackMan.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ItemTypeId");
+                    b.Property<int>("DbObjectTypeId");
 
-                    b.Property<string>("ObjectName");
+                    b.Property<string>("ObjectName")
+                        .HasMaxLength(150);
 
                     b.Property<int>("PackageId");
 
-                    b.Property<string>("Status");
+                    b.Property<int>("StatusId");
+
+                    b.Property<int>("Version");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DbObjectTypeId");
+
                     b.HasIndex("PackageId");
 
+                    b.HasIndex("StatusId");
+
                     b.ToTable("DbObject");
+                });
+
+            modelBuilder.Entity("SqlPackMan.Models.DbObjectType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RGType")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("SqlType")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DbObjType");
                 });
 
             modelBuilder.Entity("SqlPackMan.Models.DdsEnvironment", b =>
@@ -48,11 +72,14 @@ namespace SqlPackMan.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("Server");
+                    b.Property<string>("SchemaPath")
+                        .HasMaxLength(150);
 
-                    b.Property<string>("SourceControlPath");
+                    b.Property<string>("Server")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -81,7 +108,8 @@ namespace SqlPackMan.Migrations
 
                     b.Property<string>("PreScript");
 
-                    b.Property<string>("Status");
+                    b.Property<string>("Status")
+                        .HasMaxLength(50);
 
                     b.Property<int>("TargetEnvironment");
 
@@ -104,7 +132,8 @@ namespace SqlPackMan.Migrations
 
                     b.Property<string>("ResultText");
 
-                    b.Property<string>("Step");
+                    b.Property<string>("Step")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime>("Timestamp");
 
@@ -121,36 +150,82 @@ namespace SqlPackMan.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DbName");
-
-                    b.Property<int>("DdsEnvironmentId")
+                    b.Property<int>("CurEnvironmentId")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(0);
+                        .HasDefaultValue(1);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("DbName")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(150);
 
                     b.Property<int>("MaxEnvironmentId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("Status");
+                    b.Property<string>("Notes")
+                        .HasMaxLength(1000);
 
-                    b.Property<DateTime>("StatusDate");
+                    b.Property<DateTime>("StatusDate")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(1);
+
+                    b.Property<int>("Version")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(1);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CurEnvironmentId");
+
+                    b.HasIndex("MaxEnvironmentId");
 
                     b.HasIndex("Name")
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
 
+                    b.HasIndex("StatusId");
+
                     b.ToTable("Package");
+                });
+
+            modelBuilder.Entity("SqlPackMan.Models.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsItemLevel");
+
+                    b.Property<string>("Label")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("SqlPackMan.Models.DbObject", b =>
                 {
+                    b.HasOne("SqlPackMan.Models.DbObjectType", "DbObjectType")
+                        .WithMany()
+                        .HasForeignKey("DbObjectTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("SqlPackMan.Models.Package", "Package")
                         .WithMany("Items")
                         .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SqlPackMan.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -172,6 +247,24 @@ namespace SqlPackMan.Migrations
                     b.HasOne("SqlPackMan.Models.Migration", "Migration")
                         .WithMany("MigrationResults")
                         .HasForeignKey("MigrationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SqlPackMan.Models.Package", b =>
+                {
+                    b.HasOne("SqlPackMan.Models.DdsEnvironment", "CurEnvironment")
+                        .WithMany()
+                        .HasForeignKey("CurEnvironmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SqlPackMan.Models.DdsEnvironment", "MaxEnvironment")
+                        .WithMany()
+                        .HasForeignKey("MaxEnvironmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SqlPackMan.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

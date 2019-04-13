@@ -8,11 +8,11 @@ namespace SqlPackMan.SQLCompare
 {
     public class Sync
     {
-        public void BeforeRefresh(DdsDatabase database, DdsEnvironment environment, string scriptsFolder)
+        public void BeforeRefresh(string database, DdsEnvironment environment, string scriptsFolder)
         {
 
         }
-        public void AfterRefresh(DdsDatabase database, DdsEnvironment environment, string scriptsFolder)
+        public void AfterRefresh(string database, DdsEnvironment environment, string scriptsFolder)
         {
 
         }

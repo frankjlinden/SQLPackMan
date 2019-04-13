@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SqlPackMan.Models;
 
 namespace SqlPackMan.Migrations
 {
     [DbContext(typeof(SqlPackManContext))]
-    partial class SqlPackManContextModelSnapshot : ModelSnapshot
+    [Migration("20190403213313_Versionfields")]
+    partial class Versionfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,14 +29,14 @@ namespace SqlPackMan.Migrations
 
                     b.Property<int>("DbObjectTypeId");
 
+                    b.Property<int>("ItemVersion");
+
                     b.Property<string>("ObjectName")
                         .HasMaxLength(150);
 
                     b.Property<int>("PackageId");
 
                     b.Property<int>("StatusId");
-
-                    b.Property<int>("Version");
 
                     b.HasKey("Id");
 
@@ -166,23 +168,20 @@ namespace SqlPackMan.Migrations
                     b.Property<string>("Notes")
                         .HasMaxLength(1000);
 
+                    b.Property<int>("Version");
+
                     b.Property<DateTime>("StatusDate")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
 
                     b.Property<int>("StatusId")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(1);
-
-                    b.Property<int>("Version")
-                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
                         .HasDefaultValue(1);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CurEnvironmentId");
-
-                    b.HasIndex("MaxEnvironmentId");
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -253,11 +252,6 @@ namespace SqlPackMan.Migrations
                     b.HasOne("SqlPackMan.Models.DdsEnvironment", "CurEnvironment")
                         .WithMany()
                         .HasForeignKey("CurEnvironmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SqlPackMan.Models.DdsEnvironment", "MaxEnvironment")
-                        .WithMany()
-                        .HasForeignKey("MaxEnvironmentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SqlPackMan.Models.Status", "Status")

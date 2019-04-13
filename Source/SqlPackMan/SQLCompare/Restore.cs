@@ -8,11 +8,11 @@ namespace SqlPackMan.SQLCompare
 {
     public class Restore
     {
-        public void PrepareRestore(DdsDatabase database, DdsEnvironment environment, string scriptsFolder)
+        public void PrepareRestore(string database, DdsEnvironment environment, string scriptsFolder)
         {
 
         }
-        public void SyncRestore(DdsDatabase database, DdsEnvironment environment, string scriptsFolder)
+        public void SyncRestore(string database, DdsEnvironment environment, string scriptsFolder)
         {
 
         }

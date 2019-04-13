@@ -4,19 +4,33 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SqlPackMan.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "DbObjType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SqlType = table.Column<string>(maxLength: 50, nullable: true),
+                    RGType = table.Column<string>(maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DbObjType", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "DdsEnvironment",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Server = table.Column<string>(nullable: true),
-                    SourceControlPath = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 50, nullable: true),
+                    Server = table.Column<string>(maxLength: 50, nullable: true),
+                    SchemaPath = table.Column<string>(maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,17 +43,33 @@ namespace SqlPackMan.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: true),
+                    Description = table.Column<string>(maxLength: 150, nullable: true),
+                    Status = table.Column<string>(maxLength: 50, nullable: true),
                     StatusDate = table.Column<DateTime>(nullable: false),
                     DdsEnvironmentId = table.Column<int>(nullable: false, defaultValue: 0),
-                    DbName = table.Column<string>(nullable: true),
-                    MaxEnvironmentId = table.Column<int>(nullable: false)
+                    DbName = table.Column<string>(maxLength: 50, nullable: true),
+                    MaxEnvironmentId = table.Column<int>(nullable: false),
+                    FeatureVersion = table.Column<int>(nullable: false),
+                    Notes = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Package", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Status",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Label = table.Column<string>(maxLength: 50, nullable: true),
+                    IsItemLevel = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Status", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,9 +78,9 @@ namespace SqlPackMan.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ObjectName = table.Column<string>(nullable: true),
+                    ObjectName = table.Column<string>(maxLength: 150, nullable: true),
                     PackageId = table.Column<int>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(maxLength: 50, nullable: true),
                     ItemTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -71,7 +101,7 @@ namespace SqlPackMan.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(maxLength: 50, nullable: true),
                     PackageId = table.Column<int>(nullable: false),
                     PreScript = table.Column<string>(nullable: true),
                     PostScript = table.Column<string>(nullable: true),
@@ -103,7 +133,7 @@ namespace SqlPackMan.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     MigrationId = table.Column<int>(nullable: false),
-                    Step = table.Column<string>(nullable: true),
+                    Step = table.Column<string>(maxLength: 50, nullable: true),
                     Timestamp = table.Column<DateTime>(nullable: false),
                     ResultText = table.Column<string>(nullable: true)
                 },
@@ -159,7 +189,13 @@ namespace SqlPackMan.Migrations
                 name: "DbObject");
 
             migrationBuilder.DropTable(
+                name: "DbObjType");
+
+            migrationBuilder.DropTable(
                 name: "MigrationResult");
+
+            migrationBuilder.DropTable(
+                name: "Status");
 
             migrationBuilder.DropTable(
                 name: "Migration");

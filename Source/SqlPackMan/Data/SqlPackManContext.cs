@@ -15,6 +15,8 @@ namespace SqlPackMan.Models
         }
        
         public DbSet<SqlPackMan.Models.DbObject> DbObject { get; set; }
+        public DbSet<DbObjectType> DbObjType { get; set; }
+ 
 
         public DbSet<SqlPackMan.Models.Package> Package { get; set; }
 
@@ -32,26 +34,29 @@ namespace SqlPackMan.Models
 
             modelBuilder
                 .Entity<Package>()
-                .Property(e => e.DdsEnvironmentId)
-                .HasDefaultValue(0);
+                .Property(e => e.CurEnvironmentId)
+                .HasDefaultValue(1);
 
             modelBuilder
                 .Entity<Package>()
                 .HasIndex(p => p.Name)
                 .IsUnique();
 
-          
-               
-                
-                
+            modelBuilder
+                 .Entity<Package>()
+                 .Property(p => p.StatusId)
+                 .HasDefaultValue(1);
 
-                
-            //modelBuilder
-            //.Entity<Item>()
-            //.Property(e => e.Status)
-            //.HasConversion(
-            //    v => v.ToString(),
-            //    v => (Lists.Status)Enum.Parse(typeof(Lists.Status), v));
+            modelBuilder
+            .Entity<Package>()
+            .Property(p => p.StatusDate)
+            .HasDefaultValueSql("getdate()");
+
+            modelBuilder
+           .Entity<Package>()
+           .Property(p => p.Version)
+           .HasDefaultValue(1);
+
 
         }
     }

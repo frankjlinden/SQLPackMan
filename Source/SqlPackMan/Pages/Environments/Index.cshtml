@@ -1,0 +1,48 @@
+﻿@page "{id:int?}"
+@model SqlPackMan.Pages.Environments.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>DDS SQL Environments</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DdsEnvironment[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DdsEnvironment[0].Server)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DdsEnvironment[0].SchemaPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DdsEnvironment) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Server)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchemaPath)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

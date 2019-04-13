@@ -6,7 +6,17 @@
 
 <div class="jumbotron">
     <h1>SQL Package Manager</h1>
-    <p>High Level description of packages, and process</p>
+    <ul>
+        <li>A SQL Package is a group of database objects related to feature or objective.</li>
+        <li>A Migration is a transfer of packages from one environment to another, including the execution of optional 'Pre' and 'Post' SQL scripts.</li>
+        <li>Packages are created in the Development Environment, then migrate through QA, Staging, and Production.</li>
+    </ul>
+    <ol type="1">
+        <li>SQL Developers create, edit, and submit packages to SQL Admins for review and migration.</li>
+        <li>SQL Admins configure and execute Migrations of submitted packages.</li>
+        <li>SQL Developers verify the correct operation of migrated package items and data.</li>
+    </ol>
+
 </div>
 <div class="row">
     <div class="col-md-3">
@@ -21,7 +31,8 @@
     </div>
     <div class="col-md-3">
         <h2>Migrate</h2>
-        <p><b>SQL Admin: </b> <br /> Review and Migrate Packages between environments</p>
+        <p><b>SQL Admin: </b> <br /> Review and Migrate Packages </p>
+        <br />
         <p>
             <a class="btn btn-default"
                href="https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu-final">

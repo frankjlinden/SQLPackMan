@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20190313081323_initial.Designer.cs" />
     <Compile Remove="Migrations\20190325204901_initial.cs" />
     <Compile Remove="Migrations\20190325204901_initial.Designer.cs" />
+    <Compile Remove="Migrations\20190329112105_Initial-Create.cs" />
+    <Compile Remove="Migrations\20190329112105_Initial-Create.Designer.cs" />
   </ItemGroup>
 
 
@@ -24,7 +26,7 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Models\DataModels\" />
-    <Folder Include="Models\ViewModels\" />
+    <Folder Include="Pages\Shared\Items\" />
   </ItemGroup>
 
 </Project>

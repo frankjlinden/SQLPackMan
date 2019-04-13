@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace SqlPackMan.Models
     {
         public int Id { get; set; }
         public int MigrationId { get; set; }
+        [StringLength(50)]
         public string Step { get; set; }
         public DateTime Timestamp { get; set; }
         public string ResultText { get; set; }
