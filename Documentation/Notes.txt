@@ -22,12 +22,9 @@ CREATE
 	
  EDIT
 Manual Set Status 
-        
+
 
 Version auto 1 on Create for Package and Items
-
-	
-
 
 Select Type
 		
@@ -35,4 +32,5 @@ Packages.Index
 First Get, no table values
 Search disabled until db selection is made
 
-Sort by Status Date not working
+Too much margin on left, columns should be wider
+SqlPackManContext _context, 
