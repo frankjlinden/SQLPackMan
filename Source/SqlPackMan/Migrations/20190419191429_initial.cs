@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SqlPackMan.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,27 +38,6 @@ namespace SqlPackMan.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Package",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: true),
-                    Description = table.Column<string>(maxLength: 150, nullable: true),
-                    Status = table.Column<string>(maxLength: 50, nullable: true),
-                    StatusDate = table.Column<DateTime>(nullable: false),
-                    DdsEnvironmentId = table.Column<int>(nullable: false, defaultValue: 0),
-                    DbName = table.Column<string>(maxLength: 50, nullable: true),
-                    MaxEnvironmentId = table.Column<int>(nullable: false),
-                    FeatureVersion = table.Column<int>(nullable: false),
-                    Notes = table.Column<string>(maxLength: 1000, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Package", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Status",
                 columns: table => new
                 {
@@ -73,6 +52,45 @@ namespace SqlPackMan.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Package",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: true),
+                    Description = table.Column<string>(maxLength: 150, nullable: true),
+                    StatusId = table.Column<int>(nullable: false, defaultValue: 1),
+                    StatusDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
+                    CurEnvironmentId = table.Column<int>(nullable: false, defaultValue: 1),
+                    DbName = table.Column<string>(maxLength: 50, nullable: true),
+                    MaxEnvironmentId = table.Column<int>(nullable: false, defaultValue: 1),
+                    Version = table.Column<int>(nullable: false, defaultValue: 1),
+                    Notes = table.Column<string>(maxLength: 1000, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Package", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Package_DdsEnvironment_CurEnvironmentId",
+                        column: x => x.CurEnvironmentId,
+                        principalTable: "DdsEnvironment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Package_DdsEnvironment_MaxEnvironmentId",
+                        column: x => x.MaxEnvironmentId,
+                        principalTable: "DdsEnvironment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Package_Status_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Status",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DbObject",
                 columns: table => new
                 {
@@ -80,18 +98,31 @@ namespace SqlPackMan.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ObjectName = table.Column<string>(maxLength: 150, nullable: true),
                     PackageId = table.Column<int>(nullable: false),
-                    Status = table.Column<string>(maxLength: 50, nullable: true),
-                    ItemTypeId = table.Column<int>(nullable: false)
+                    Version = table.Column<int>(nullable: false, defaultValue: 1),
+                    StatusId = table.Column<int>(nullable: false, defaultValue: 1),
+                    DbObjectTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DbObject", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_DbObject_DbObjType_DbObjectTypeId",
+                        column: x => x.DbObjectTypeId,
+                        principalTable: "DbObjType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_DbObject_Package_PackageId",
                         column: x => x.PackageId,
                         principalTable: "Package",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DbObject_Status_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Status",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,13 +148,13 @@ namespace SqlPackMan.Migrations
                         column: x => x.DdsEnvironmentId,
                         principalTable: "DdsEnvironment",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Migration_Package_PackageId",
                         column: x => x.PackageId,
                         principalTable: "Package",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,13 +176,23 @@ namespace SqlPackMan.Migrations
                         column: x => x.MigrationId,
                         principalTable: "Migration",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DbObject_DbObjectTypeId",
+                table: "DbObject",
+                column: "DbObjectTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DbObject_PackageId",
                 table: "DbObject",
                 column: "PackageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DbObject_StatusId",
+                table: "DbObject",
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DdsEnvironment_Name",
@@ -176,11 +217,26 @@ namespace SqlPackMan.Migrations
                 column: "MigrationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Package_CurEnvironmentId",
+                table: "Package",
+                column: "CurEnvironmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Package_MaxEnvironmentId",
+                table: "Package",
+                column: "MaxEnvironmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Package_Name",
                 table: "Package",
                 column: "Name",
                 unique: true,
                 filter: "[Name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Package_StatusId",
+                table: "Package",
+                column: "StatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -189,22 +245,22 @@ namespace SqlPackMan.Migrations
                 name: "DbObject");
 
             migrationBuilder.DropTable(
-                name: "DbObjType");
-
-            migrationBuilder.DropTable(
                 name: "MigrationResult");
 
             migrationBuilder.DropTable(
-                name: "Status");
+                name: "DbObjType");
 
             migrationBuilder.DropTable(
                 name: "Migration");
 
             migrationBuilder.DropTable(
+                name: "Package");
+
+            migrationBuilder.DropTable(
                 name: "DdsEnvironment");
 
             migrationBuilder.DropTable(
-                name: "Package");
+                name: "Status");
         }
     }
 }

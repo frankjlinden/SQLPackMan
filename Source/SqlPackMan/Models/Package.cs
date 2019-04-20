@@ -14,21 +14,24 @@ namespace SqlPackMan.Models
         public int Id { get; set; }
 
         [StringLength(50)]
+        [DisplayName("Package Name")]
         public string Name { get; set; }
 
         [StringLength(150)]
         public string Description { get; set; }
-
         
         public int StatusId { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DisplayName("Status Date")]
         public DateTime StatusDate { get; set; }
+            
         public int CurEnvironmentId { get; set; }
 
         [StringLength(50)]
+        [DisplayName("Database")]
         public string DbName { get; set; }
-
        
         public int MaxEnvironmentId { get; set; }
         public int Version { get; set; }
@@ -46,5 +49,12 @@ namespace SqlPackMan.Models
         public ICollection<DbObject> Items { get; set; }
         public ICollection<Migration> Migrations { get; set; }
 
+        public Package()
+        {
+            Version = 1;
+            CurEnvironmentId = 1;
+            MaxEnvironmentId = 1;
+            StatusId = 1;
+        }
     }
 }

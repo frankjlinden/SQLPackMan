@@ -13,10 +13,10 @@ namespace Tests
         [Test]
         public void Test1()
         {
-            string db = "[PackManContext-f70699d6-6d28-46ee-bc49-26e99d8c7d95]";
-            string name = "Environment";
-            ItemDAL dal = new ItemDAL();
-            string type = dal.GetItemType(name,db);
+            //string db = "[PackManContext-f70699d6-6d28-46ee-bc49-26e99d8c7d95]";
+            //string name = "Environment";
+            //dbObjectDAL dal = new dbObjectDAL();
+            //string type = dal.GetItemType(name,db);
 
 
             Assert.Pass();

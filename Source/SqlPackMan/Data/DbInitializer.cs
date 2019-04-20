@@ -24,13 +24,9 @@ namespace SqlPackMan.Data
                 {
                     context.Add(env);
                 }
-                
                 context.SaveChanges();
-
             }
-
            
-
             //DbObjectTypes
             if (!context.DbObject.Any())
             {
@@ -42,13 +38,11 @@ namespace SqlPackMan.Data
                 new DbObjectType{SqlType="FN,FT,IF",RGType="Function"},
                 new DbObjectType{SqlType="SQ",RGType="Sequence"}
                 };
-
                 foreach (DbObjectType type in dbObjectTypes)
                 {
                     context.Add(type);
                 }
                 context.SaveChanges();
-
             }
 
             //STATUS

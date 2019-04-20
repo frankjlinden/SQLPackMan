@@ -10,8 +10,8 @@ using SqlPackMan.Models;
 namespace SqlPackMan.Migrations
 {
     [DbContext(typeof(SqlPackManContext))]
-    [Migration("20190405225108_version")]
-    partial class version
+    [Migration("20190419191651_next")]
+    partial class next
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,9 +34,13 @@ namespace SqlPackMan.Migrations
 
                     b.Property<int>("PackageId");
 
-                    b.Property<int>("StatusId");
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(1);
 
-                    b.Property<int>("Version");
+                    b.Property<int>("Version")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(1);
 
                     b.HasKey("Id");
 
@@ -160,7 +164,9 @@ namespace SqlPackMan.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(150);
 
-                    b.Property<int>("MaxEnvironmentId");
+                    b.Property<int>("MaxEnvironmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(1);
 
                     b.Property<string>("Name")
                         .HasMaxLength(50);

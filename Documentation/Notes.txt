@@ -1,0 +1,38 @@
+Packages.Edit / CREATE
+
+2a.)  CREATE PACKAGE: 
+	Default Environment - DEV
+	Populate DB Select
+	Populate Max Environment Select
+	
+2b.)  EDIT: Select Environment - 
+	Populate DB Select for Environment
+	Increment Version Button?
+	
+
+PACKAGE ITEM
+CREATE / EDIT
+  Auto-Set Status Date Hidden
+  Populate DBObject Type dropdown
+  Select Type
+  populate item dropdown
+        
+CREATE
+  Auto-Set Status Hidden
+	
+ EDIT
+Manual Set Status 
+        
+
+Version auto 1 on Create for Package and Items
+
+	
+
+
+Select Type
+		
+Packages.Index
+First Get, no table values
+Search disabled until db selection is made
+
+Sort by Status Date not working
