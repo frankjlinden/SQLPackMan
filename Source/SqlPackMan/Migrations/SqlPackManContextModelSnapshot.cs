@@ -32,9 +32,11 @@ namespace SqlPackMan.Migrations
 
                     b.Property<int>("PackageId");
 
+                    b.Property<DateTime>("StatusDate");
+
                     b.Property<int>("StatusId")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(1);
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
@@ -178,11 +180,11 @@ namespace SqlPackMan.Migrations
 
                     b.Property<int>("StatusId")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(1);
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(1);
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 

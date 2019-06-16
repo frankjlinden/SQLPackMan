@@ -10,7 +10,7 @@ using SqlPackMan.Models;
 namespace SqlPackMan.Migrations
 {
     [DbContext(typeof(SqlPackManContext))]
-    [Migration("20190419191429_initial")]
+    [Migration("20190616145830_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,9 +34,11 @@ namespace SqlPackMan.Migrations
 
                     b.Property<int>("PackageId");
 
+                    b.Property<DateTime>("StatusDate");
+
                     b.Property<int>("StatusId")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(1);
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
@@ -180,11 +182,11 @@ namespace SqlPackMan.Migrations
 
                     b.Property<int>("StatusId")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(1);
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(1);
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 

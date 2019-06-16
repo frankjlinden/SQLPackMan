@@ -1,0 +1,8 @@
+SET IDENTITY_INSERT [dbo].[Package] ON
+INSERT INTO [dbo].[Package] ([Id], [Name], [Description], [StatusId], [StatusDate], [CurEnvironmentId], [DbName], [MaxEnvironmentId], [Version], [Notes]) VALUES (5, N'New Test Package1', N'First test with new stuff', 1, N'2019-04-20 08:27:29', 1, N'DB1', 1, 1, N'wuid ipselum epsum')
+INSERT INTO [dbo].[Package] ([Id], [Name], [Description], [StatusId], [StatusDate], [CurEnvironmentId], [DbName], [MaxEnvironmentId], [Version], [Notes]) VALUES (6, N'Pack2-1', N'Testing with another package in a different DB', 1, N'1919-04-20 14:36:31', 1, N'DB2', 1, 1, N'sdfsdfddsfsf')
+INSERT INTO [dbo].[Package] ([Id], [Name], [Description], [StatusId], [StatusDate], [CurEnvironmentId], [DbName], [MaxEnvironmentId], [Version], [Notes]) VALUES (7, N'aFeature1b', N'fffff', 1, N'2019-04-20 19:47:16', 1, N'DB1', 1, 1, NULL)
+INSERT INTO [dbo].[Package] ([Id], [Name], [Description], [StatusId], [StatusDate], [CurEnvironmentId], [DbName], [MaxEnvironmentId], [Version], [Notes]) VALUES (8, N'afffffffffffff', N'ffffffffffffff', 1, N'2019-04-20 19:48:22', 1, N'DB1', 1, 1, NULL)
+INSERT INTO [dbo].[Package] ([Id], [Name], [Description], [StatusId], [StatusDate], [CurEnvironmentId], [DbName], [MaxEnvironmentId], [Version], [Notes]) VALUES (9, N'ahhhhhhhhhhh', N'hhhhhhhhhhhh', 1, N'2019-04-20 19:48:42', 1, N'DB1', 1, 1, NULL)
+INSERT INTO [dbo].[Package] ([Id], [Name], [Description], [StatusId], [StatusDate], [CurEnvironmentId], [DbName], [MaxEnvironmentId], [Version], [Notes]) VALUES (10, N'jjjjjjjjjjjjjjjjj', N'jjjjjjjjjjjj', 1, N'2019-04-20 19:48:55', 1, N'DB1', 1, 1, NULL)
+SET IDENTITY_INSERT [dbo].[Package] OFF

@@ -1,0 +1,110 @@
+﻿@page  "{packageId:int?}"
+
+    @model SqlPackMan.Pages.DbObjects.CreateModel
+
+<h4>DbObject</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DbObject.ObjectName" class="control-label"></label>
+                <input asp-for="DbObject.ObjectName" class="form-control" />
+                <span asp-validation-for="DbObject.ObjectName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="DbObject.PackageId" type="hidden" class="form-control" value=@RouteData.Values["packageId"] />
+            </div>
+            <div class="form-group">
+                <label asp-for="DbObject.DbObjectTypeId" class="control-label"></label>
+                <select asp-for="DbObject.DbObjectTypeId" class="form-control" asp-items="Model.DbObjectTypeSL">Select DB Object Type</select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-page="./Create" asp-route-sortOrder="@Model.NameSort"
+                           asp-route-currentFilterType="@Model.CurrentFilterType"
+                           asp-route-currentFilterName="@Model.CurrentFilterName">
+                            @Html.DisplayNameFor(model => model.DbObjects[0].ObjectName)
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-page="./Create" asp-route-sortOrder="@Model.TypeSort"
+                           asp-route-currentFilterDB="@Model.CurrentFilterType"
+                           asp-route-currentFilterName="@Model.CurrentFilterName">
+                            @Html.DisplayNameFor(model => model.DbObjects[0].Status.Label)
+                        </a>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DbObjects)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ObjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DbObjectType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status.Label)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StatusDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Package.CurEnvironment.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Package.MaxEnvironment.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Version)
+                        </td>
+
+                        <td>
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @{
+            var prevDisabled = !Model.DbObjects.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.DbObjects.HasNextPage ? "disabled" : "";
+        }
+        <a asp-page="./Index"
+           asp-route-sortOrder="@Model.CurrentSort"
+           asp-route-pageIndex="@(Model.DbObjects.PageIndex - 1)"
+           asp-route-currentFilterType="@Model.CurrentFilterType"
+           asp-route-currentFilterName="@Model.CurrentFilterName"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-page="./Index"
+           asp-route-sortOrder="@Model.CurrentSort"
+           asp-route-pageIndex="@(Model.DbObjects.PageIndex + 1)"
+           asp-route-currentFilterDb="@Model.CurrentFilterType"
+           asp-route-currentFilterName="@Model.CurrentFilterName"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+    </div>
+</div>
+
+<div>
+    <a asp-page="../Packages/Details" asp-route-id="@ViewBag.PackageId">Back to Package</a> |
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

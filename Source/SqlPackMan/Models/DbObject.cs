@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -22,6 +23,12 @@ namespace SqlPackMan.Models
         public int Version { get; set; }
 
         public int StatusId { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DisplayName("Status Date")]
+        public DateTime StatusDate { get; set; }
+
         public int DbObjectTypeId { get; set; }
 
         [NotMapped]

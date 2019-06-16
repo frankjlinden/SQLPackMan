@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.PackageItems
+namespace SqlPackMan.Pages.DbObjects
 {
     public class EditModel : PageModel
     {

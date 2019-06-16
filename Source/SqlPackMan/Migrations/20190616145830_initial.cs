@@ -59,12 +59,12 @@ namespace SqlPackMan.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 50, nullable: true),
                     Description = table.Column<string>(maxLength: 150, nullable: true),
-                    StatusId = table.Column<int>(nullable: false, defaultValue: 1),
+                    StatusId = table.Column<int>(nullable: false, defaultValue: 0),
                     StatusDate = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()"),
                     CurEnvironmentId = table.Column<int>(nullable: false, defaultValue: 1),
                     DbName = table.Column<string>(maxLength: 50, nullable: true),
                     MaxEnvironmentId = table.Column<int>(nullable: false, defaultValue: 1),
-                    Version = table.Column<int>(nullable: false, defaultValue: 1),
+                    Version = table.Column<int>(nullable: false, defaultValue: 0),
                     Notes = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
@@ -99,7 +99,8 @@ namespace SqlPackMan.Migrations
                     ObjectName = table.Column<string>(maxLength: 150, nullable: true),
                     PackageId = table.Column<int>(nullable: false),
                     Version = table.Column<int>(nullable: false, defaultValue: 1),
-                    StatusId = table.Column<int>(nullable: false, defaultValue: 1),
+                    StatusId = table.Column<int>(nullable: false, defaultValue: 0),
+                    StatusDate = table.Column<DateTime>(nullable: false),
                     DbObjectTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -110,19 +111,19 @@ namespace SqlPackMan.Migrations
                         column: x => x.DbObjectTypeId,
                         principalTable: "DbObjType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DbObject_Package_PackageId",
                         column: x => x.PackageId,
                         principalTable: "Package",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DbObject_Status_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Status",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,13 +149,13 @@ namespace SqlPackMan.Migrations
                         column: x => x.DdsEnvironmentId,
                         principalTable: "DdsEnvironment",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Migration_Package_PackageId",
                         column: x => x.PackageId,
                         principalTable: "Package",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,7 +177,7 @@ namespace SqlPackMan.Migrations
                         column: x => x.MigrationId,
                         principalTable: "Migration",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

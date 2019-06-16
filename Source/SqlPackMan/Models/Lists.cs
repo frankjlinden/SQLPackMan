@@ -26,16 +26,19 @@ namespace SqlPackMan.Models
             [Description("Sequence")]
             SQ =4
         };
-      
+
+
         public enum Status
         {
-            AdminReview,
-            Current,
             Development,
+            AdminReview,
             Queued,
             Test,
+            Current,
             Error
         };
+
+
         public enum MigrationStatus
         {
             Error,

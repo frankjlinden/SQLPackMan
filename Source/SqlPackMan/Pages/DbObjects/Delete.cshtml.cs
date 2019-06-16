@@ -7,17 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SqlPackMan.Models;
 
-namespace SqlPackMan.Pages.PackageItems
+namespace SqlPackMan.Pages.DbObjects
 {
-    public class DetailsModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly SqlPackMan.Models.SqlPackManContext _context;
 
-        public DetailsModel(SqlPackMan.Models.SqlPackManContext context)
+        public DeleteModel(SqlPackMan.Models.SqlPackManContext context)
         {
             _context = context;
         }
 
+        [BindProperty]
         public DbObject DbObject { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -37,6 +38,24 @@ namespace SqlPackMan.Pages.PackageItems
                 return NotFound();
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            DbObject = await _context.DbObject.FindAsync(id);
+
+            if (DbObject != null)
+            {
+                _context.DbObject.Remove(DbObject);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./Index");
         }
     }
 }

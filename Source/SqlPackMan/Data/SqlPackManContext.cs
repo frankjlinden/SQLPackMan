@@ -49,7 +49,7 @@ namespace SqlPackMan.Models
             modelBuilder
                  .Entity<Package>()
                  .Property(p => p.StatusId)
-                 .HasDefaultValue(1);
+                 .HasDefaultValue(0);
 
             modelBuilder
             .Entity<Package>()
@@ -59,7 +59,7 @@ namespace SqlPackMan.Models
             modelBuilder
            .Entity<Package>()
            .Property(p => p.Version)
-           .HasDefaultValue(1);
+           .HasDefaultValue(0);
 
             modelBuilder
             .Entity<DbObject>()
@@ -69,7 +69,7 @@ namespace SqlPackMan.Models
             modelBuilder
             .Entity<DbObject>()
             .Property(d => d.StatusId)
-            .HasDefaultValue(1);
+            .HasDefaultValue(0);
         }
     }
 }
