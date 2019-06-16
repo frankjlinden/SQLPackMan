@@ -15,11 +15,9 @@ namespace SqlPackMan.Models
         }
 
         public DbSet<SqlPackMan.Models.DbObject> DbObject { get; set; }
-        public DbSet<DbObjectType> DbObjType { get; set; }
         public DbSet<SqlPackMan.Models.Package> Package { get; set; }
         public DbSet<SqlPackMan.Models.DdsEnvironment> DdsEnvironment { get; set; }
         public DbSet<SqlPackMan.Models.Migration> Migration { get; set; }
-        public DbSet<Status> Status { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,10 +43,14 @@ namespace SqlPackMan.Models
                 .Entity<Package>()
                 .HasIndex(p => p.Name)
                 .IsUnique();
+            modelBuilder
+                .Entity<Package>()
+                .Property(e => e.Status)
+                .HasConversion<int>();
 
             modelBuilder
                  .Entity<Package>()
-                 .Property(p => p.StatusId)
+                 .Property(p => p.Status)
                  .HasDefaultValue(0);
 
             modelBuilder
@@ -59,17 +61,25 @@ namespace SqlPackMan.Models
             modelBuilder
            .Entity<Package>()
            .Property(p => p.Version)
-           .HasDefaultValue(0);
+           .HasDefaultValue(1);
 
             modelBuilder
-            .Entity<DbObject>()
-            .Property(d => d.Version)
-            .HasDefaultValue(1);
+                .Entity<DbObject>()
+                .Property(d => d.Version)
+                .HasDefaultValue(1);
 
             modelBuilder
-            .Entity<DbObject>()
-            .Property(d => d.StatusId)
-            .HasDefaultValue(0);
+                .Entity<DbObject>()
+                .Property(e => e.Status)
+                .HasConversion<int>();
+            modelBuilder
+                .Entity<Migration>()
+                .Property(e => e.Status)
+                .HasConversion<int>();
+            modelBuilder
+                .Entity<Migration>()
+                .Property(p => p.Status)
+                .HasDefaultValue(0);
         }
     }
 }

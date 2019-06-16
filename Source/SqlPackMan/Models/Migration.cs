@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using static SqlPackMan.Models.Enums;
 
 namespace SqlPackMan.Models
 {
@@ -12,22 +13,25 @@ namespace SqlPackMan.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        private int _statusId;
+        public Status Status
+        {
+            get => (Status)_statusId;
+            set => _statusId = (int)value;
+        }
+        public int PackageId { get; set; }
 
-        [StringLength(50)]
-        public string   Status { get; set; }
-        public int      PackageId { get; set; }
-      
-        public string   PreScript { get; set; }
-        public string   PostScript { get; set; }
-        public string   PackageScript { get; set; }
-    
-        public int      DdsEnvironmentId { get; set; }
+        public string PreScript { get; set; }
+        public string PostScript { get; set; }
+        public string PackageScript { get; set; }
 
-        public int      TargetEnvironment  { get; set; }
+        public int DdsEnvironmentId { get; set; }
+
+        public int TargetEnvironment { get; set; }
 
         // nav props
         public Package Package { get; set; }
-        public DdsEnvironment   Environment { get; set; }
+        public DdsEnvironment Environment { get; set; }
         public List<MigrationResult> MigrationResults { get; set; }
 
         //status Error, Success

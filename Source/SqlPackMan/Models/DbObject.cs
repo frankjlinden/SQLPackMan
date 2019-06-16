@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using static SqlPackMan.Models.Enums;
 
 namespace SqlPackMan.Models
 {
@@ -22,7 +23,7 @@ namespace SqlPackMan.Models
         //item is synced to scripts folder
         public int Version { get; set; }
 
-        public int StatusId { get; set; }
+        private int _statusId { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
@@ -35,7 +36,11 @@ namespace SqlPackMan.Models
         public HashSet<string> Tags;
 
         //nav props
-        public Status Status { get; set; }
+        public Status Status {
+            get => (Status)_statusId;
+            set => _statusId = (int)value;
+        }
+
         public Package Package { get; set; }
         public DbObjectType DbObjectType { get; set; }
 

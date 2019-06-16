@@ -23,14 +23,14 @@ CREATE
  EDIT
 Manual Set Status 
 
-
 Version auto 1 on Create for Package and Items
 
 Select Type
 		
-Packages.Index
-First Get, no table values
-Search disabled until db selection is made
-
 Too much margin on left, columns should be wider
 SqlPackManContext _context, 
+https://odetocode.com/blogs/scott/archive/2010/01/18/drop-down-lists-and-asp-net-mvc.aspx
+NEW NOTES
+1.) CREATE DBObject
+	-Show Database Name
+	-Friendly labels for Package Name, Status, and DBobject Type

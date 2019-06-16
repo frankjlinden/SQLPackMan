@@ -11,15 +11,22 @@ namespace SqlPackMan.Pages.DbObjects
 {
     public class DbObjectCreateEditPageModel : PageModel
     {
+        private readonly SqlPackManContext _context;
+        public IQueryable<DbObject> iQDbObject;
         public SelectList DbObjectTypeSL { get; set; }
 
-        public void PopulateDbObjectTypeSelectList(SqlPackManContext context, object selectedObjectType = null)
-        {
-            var dbObjectTypeQuery = from ot in context.DbObjType
-                              select ot;
+        public void SearchDbObjects(string db, string type, string name ) {
+            try
+            {
+                var devEnv = _context.DdsEnvironment.FirstOrDefault(e => e.Name == "DEV");
+                var dbAdo = new dbObjectDAL(devEnv.Server);
+                iQDbObject = dbAdo.DbObjects(db,type,name).AsQueryable();
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
 
-            DbObjectTypeSL = new SelectList(dbObjectTypeQuery.AsNoTracking(),  "SqlType", "RGType", selectedObjectType);
         }
-
     }
 }

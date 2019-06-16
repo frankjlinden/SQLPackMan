@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using static SqlPackMan.Models.Enums;
 
 namespace SqlPackMan.Models
 {
@@ -20,7 +21,7 @@ namespace SqlPackMan.Models
         [StringLength(150)]
         public string Description { get; set; }
         
-        public int StatusId { get; set; }
+        private int _statusId { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
@@ -54,7 +55,6 @@ namespace SqlPackMan.Models
             Version = 1;
             CurEnvironmentId = 1;
             MaxEnvironmentId = 1;
-            StatusId = 1;
         }
     }
 }

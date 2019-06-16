@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SqlPackMan.Models
 {
-    public static class Lists
+    public static class Enums
     {
-        public enum ItemType
+        public enum DbObjectType
         {
             [Description("U")]
             Table = 0,
@@ -35,16 +35,11 @@ namespace SqlPackMan.Models
             Queued,
             Test,
             Current,
-            Error
-        };
-
-
-        public enum MigrationStatus
-        {
             Error,
-            Queued,
             Success
         };
+
+        
        
 
     }
