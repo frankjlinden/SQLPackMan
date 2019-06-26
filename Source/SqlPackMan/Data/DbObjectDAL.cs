@@ -4,50 +4,21 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using static SqlPackMan.Models.Enums;
 
 namespace SqlPackMan.Models
 {
-    public class dbObjectDAL
+    public interface IDbObjectDAL
     {
-        private string connString;
-        public dbObjectDAL(string server)
+        IEnumerable<string> DbObjectNames(string searchStringDB, string searchStringType,string searchStringName, int packageId );
+        List<string> DbNames();
+    }
+    public class DbObjectDAL: IDbObjectDAL
+    {
+        private string _connString;
+        public DbObjectDAL(string server)
         {
-            connString = GetConnString(server);
-        }
-
-        //To View all employees details    
-        public string GetItemType(string objName, string dbName)
-        {
-            string retValue = "";
-
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connString))
-                {
-                    string sqlQuery = $"SELECT [type]  FROM {dbName}.sys.objects WHERE [name] = '{objName}'";
-                    SqlCommand cmd = new SqlCommand(sqlQuery, con);
-
-                    con.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    //check for empty, make new record with no type
-                    //check for more than one, throw error
-
-                    while (rdr.Read())
-                    {
-
-                        //  retValue = Conversions.GetRedGateObjectType(rdr.GetString(0).Trim());
-
-                    }
-                    con.Close();
-                }
-            }
-
-            catch (Exception e)
-            {
-
-            }
-
-            return retValue;
+            _connString = GetConnString(server);
         }
 
         public List<string> DbNames()
@@ -56,7 +27,7 @@ namespace SqlPackMan.Models
 
             try
             {
-                using (SqlConnection con = new SqlConnection(connString))
+                using (SqlConnection con = new SqlConnection(_connString))
                 {
                     string sqlQuery = $"SELECT name  FROM master.dbo.sysdatabases WHERE name NOT IN ('master', 'tempdb', 'model', 'msdb')";
                     SqlCommand cmd = new SqlCommand(sqlQuery, con);
@@ -78,22 +49,26 @@ namespace SqlPackMan.Models
 
             catch (Exception e)
             {
-                throw(e);
+                throw (e);
             }
             return retList;
         }
+           
 
-        public IQueryable<DbObject> DbObjects(string dbName, string sqlType, string nameSearchString)
+        //cannot yield within try block with catch. Caller must enclose call in Try
+        public IEnumerable<string> DbObjectNames(string searchStringDB, string searchStringType, string searchStringName,int packageId)
         {
-            IEnumerable<DbObject> retList = new List<DbObject>();
             List<string> nameList = new List<string>();
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connString))
+
+                //Get 
+                using (SqlConnection con = new SqlConnection(_connString))
                 {
-                    //SELECT *  FROM [SqlPackManContext-a1532056-1e24-4ac4-903c-df2ad386e23b].sys.objects WHERE [name] = 'DDSEnvironment'
-                    string sqlQuery = $"SELECT name FROM {dbName}.sys.objects WHERE [type] IN '{sqlType}' AND [name] LIKE '%{nameSearchString}%'";
-                    SqlCommand cmd = new SqlCommand(sqlQuery, con);
+                //SELECT *  FROM [SqlPackManContext-a1532056-1e24-4ac4-903c-df2ad386e23b].sys.objects WHERE [name] = 'DDSEnvironment'
+                string  sqlQuery = $"SELECT name FROM {searchStringDB}.sys.objects WHERE [type] IN ('{searchStringType}') ";
+                        sqlQuery += "AND NOT EXISTS (SELECT name from [SqlPackManContext-a1532056-1e24-4ac4-903c-df2ad386e23b].DbObjects ";
+                        sqlQuery += $"WHERE PackageId != {packageId}";
+                        sqlQuery += $"AND [name] LIKE '%{searchStringName}%'";
+                SqlCommand cmd = new SqlCommand(sqlQuery, con);
 
                     con.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
@@ -102,30 +77,14 @@ namespace SqlPackMan.Models
 
                     while (rdr.Read())
                     {
-                        //  retValue = Conversions.GetRedGateObjectType(rdr.GetString(0).Trim());
-                        nameList.Add(rdr.GetString(0).Trim());
+                        yield return rdr.GetString(0).Trim();
                     }
                     con.Close();
                 }
-            }
-            catch (Exception e)
-            {
-                throw (e);
-            }
-
-            foreach(var name in nameList)
-            {
-                DbObject obj = new DbObject { ObjectName = name};
-                
-                retList.Append(obj);
-            }
-
-            return retList.AsQueryable();
         }
 
-      
 
-        public string GetConnString(string server)
+        private string GetConnString(string server)
         {
             return
            $"Server={server};"
@@ -134,7 +93,42 @@ namespace SqlPackMan.Models
         }
 
 
+       
 
+
+        //public string GetItemType(string objName, string dbName)
+        //{
+        //    string retValue = "";
+
+        //    try
+        //    {
+        //        using (SqlConnection con = new SqlConnection(_connString))
+        //        {
+        //            string sqlQuery = $"SELECT [type]  FROM {dbName}.sys.objects WHERE [name] = '{objName}'";
+        //            SqlCommand cmd = new SqlCommand(sqlQuery, con);
+
+        //            con.Open();
+        //            SqlDataReader rdr = cmd.ExecuteReader();
+        //            //check for empty, make new record with no type
+        //            //check for more than one, throw error
+
+        //            while (rdr.Read())
+        //            {
+
+        //                //  retValue = Conversions.GetRedGateObjectType(rdr.GetString(0).Trim());
+
+        //            }
+        //            con.Close();
+        //        }
+        //    }
+
+        //    catch (Exception e)
+        //    {
+
+        //    }
+
+        //    return retValue;
+        //}
 
     }
 

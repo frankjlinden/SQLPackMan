@@ -19,14 +19,14 @@
                 <span asp-validation-for="DbObject.PackageId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DbObject.StatusId" class="control-label"></label>
-                <select asp-for="DbObject.StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
-                <span asp-validation-for="DbObject.StatusId" class="text-danger"></span>
+                <label asp-for="DbObject.Status" class="control-label"></label>
+                <select asp-for="DbObject.Status" class="form-control" asp-items="ViewBag.StatusId"></select>
+                <span asp-validation-for="DbObject.Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DbObject.DbObjectTypeId" class="control-label"></label>
-                <select asp-for="DbObject.DbObjectTypeId" class="form-control" asp-items="ViewBag.DbObjectTypeId"></select>
-                <span asp-validation-for="DbObject.DbObjectTypeId" class="text-danger"></span>
+                <label asp-for="DbObject.DbObjectType" class="control-label"></label>
+                <select asp-for="DbObject.DbObjectType" class="form-control" asp-items="ViewBag.DbObjectTypeId"></select>
+                <span asp-validation-for="DbObject.DbObjectType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

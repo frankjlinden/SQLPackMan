@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static SqlPackMan.Models.Enums;
 
 namespace SqlPackMan.Data
 {
@@ -30,40 +31,10 @@ namespace SqlPackMan.Data
             //DbObjectTypes
             if (!context.DbObject.Any())
             {
-                var dbObjectTypes = new DbObjectType[]
-                {
-                new DbObjectType{SqlType="U",RGType="Table"},
-                new DbObjectType{SqlType="V",RGType="View"},
-                new DbObjectType{SqlType="P",RGType="StoredProcedure"},
-                new DbObjectType{SqlType="FN,FT,IF",RGType="Function"},
-                new DbObjectType{SqlType="SQ",RGType="Sequence"}
-                };
-                foreach (DbObjectType type in dbObjectTypes)
-                {
-                    context.Add(type);
-                }
-                context.SaveChanges();
+              
             }
 
-            //STATUS
-            if (!context.Status.Any())
-            {
-                var status = new Status[]
-                   {
-                new Status{Label="Development"},
-                new Status{Label="Admin Review"},
-                new Status{Label="Queued"},
-                new Status{Label="Test Review"},
-                new Status{Label="Current"},
-                new Status{Label="Error"}
-                   };
-                foreach (Status stat in status)
-                {
-                    context.Add(stat);
-                }
-                context.SaveChanges();
-            }
-
+         
             if (!context.Package.Any())
             {
                 //Packages
@@ -84,12 +55,12 @@ namespace SqlPackMan.Data
             if (!context.DbObject.Any())
             {
                 var dbObjects = new DbObject[] {
-                    new DbObject{PackageId=3,ObjectName="Table1",DbObjectTypeId=1, StatusId=1, Tags = new HashSet<string>{"Form1,Report1"}},
-                    new DbObject{PackageId=4,ObjectName="Table2",DbObjectTypeId=1, StatusId=1, Tags = new HashSet<string>{"Form2,Report2"}},
-                    new DbObject{PackageId=5,ObjectName="Table3",DbObjectTypeId=1, StatusId=1, Tags = new HashSet<string>{"Form3,Report3"}},
-                    new DbObject{PackageId=3,ObjectName="View1",DbObjectTypeId=2, StatusId=1, Tags = new HashSet<string>{"Form1,Report1"}},
-                    new DbObject{PackageId=4,ObjectName="View2",DbObjectTypeId=2, StatusId=1, Tags = new HashSet<string>{"Form2,Report2"}},
-                    new DbObject{PackageId=5,ObjectName="View3",DbObjectTypeId=2, StatusId=1, Tags = new HashSet<string>{"Form3,Report3"}},
+                    new DbObject{PackageId=3,ObjectName="Table1",DbObjectType=DbObjectType.Table, Status=Status.Development, Tags = new HashSet<string>{"Form1,Report1"}},
+                    new DbObject{PackageId=4,ObjectName="Table2",DbObjectType=DbObjectType.Table, Status=Status.Development, Tags = new HashSet<string>{"Form2,Report2"}},
+                    new DbObject{PackageId=5,ObjectName="Table3",DbObjectType=DbObjectType.Table, Status=Status.Development, Tags = new HashSet<string>{"Form3,Report3"}},
+                    new DbObject{PackageId=3,ObjectName="View1",DbObjectType=DbObjectType.View, Status=Status.Development, Tags = new HashSet<string>{"Form1,Report1"}},
+                    new DbObject{PackageId=4,ObjectName="View2",DbObjectType=DbObjectType.View, Status=Status.Development, Tags = new HashSet<string>{"Form2,Report2"}},
+                    new DbObject{PackageId=5,ObjectName="View3",DbObjectType=DbObjectType.View, Status=Status.Development, Tags = new HashSet<string>{"Form3,Report3"}},
                 };
                 foreach (DbObject dbo in dbObjects)
                 {

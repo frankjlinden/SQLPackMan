@@ -50,7 +50,7 @@ namespace SqlPackMan.Pages.DbObjects
 
             //First time model will come back null. Set it now to name_desc so that will be the value that comes back when they click the sort header.
             // When it comes back next time with a value, set it to empty string and toggle the functionality again the next time when empty string comes back from client. 
-            PopulateDbObjectTypeSelectList(_context);
+            
             CurrentSort = sortOrder;
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             TypeSort = sortOrder == "Type" ? "type_desc" : "Type";

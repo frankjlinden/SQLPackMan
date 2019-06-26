@@ -16,16 +16,17 @@ namespace SqlPackMan.Pages.DbObjects
         public SelectList DbObjectTypeSL { get; set; }
 
         public void SearchDbObjects(string db, string type, string name ) {
-            try
-            {
-                var devEnv = _context.DdsEnvironment.FirstOrDefault(e => e.Name == "DEV");
-                var dbAdo = new dbObjectDAL(devEnv.Server);
-                iQDbObject = dbAdo.DbObjects(db,type,name).AsQueryable();
-            }
-            catch (Exception e)
-            {
-                throw (e);
-            }
+            //try
+            //{
+            //    var devEnv = _context.DdsEnvironment.FirstOrDefault(e => e.Name == "DEV");
+            //    var dbAdo = new DbObjectDAL(devEnv.Server);
+            //    var repo = new DbObject
+            //    iQDbObject = dbAdo.DbNames(db,type,name).AsQueryable();
+            //}
+            //catch (Exception e)
+            //{
+            //    throw (e);
+            //}
 
         }
     }

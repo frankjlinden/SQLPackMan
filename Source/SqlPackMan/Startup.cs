@@ -39,6 +39,8 @@ namespace SqlPackMan
             services.AddDbContext<SqlPackManContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SqlPackManContext")));
 
+
+      
         
         }
 

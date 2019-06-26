@@ -9,11 +9,11 @@ using SqlPackMan.Models;
 
 namespace SqlPackMan.Pages
 {
-    public class _ItemListModel : PageModel
+    public class _ObjChkListModel : PageModel
     {
         private readonly SqlPackMan.Models.SqlPackManContext _context;
 
-        public _ItemListModel(SqlPackMan.Models.SqlPackManContext context)
+        public _ObjChkListModel(SqlPackMan.Models.SqlPackManContext context)
         {
             _context = context;
         }

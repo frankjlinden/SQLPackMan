@@ -1,0 +1,31 @@
+﻿@using SqlPackMan.Models
+@model List<DbObject>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ObjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ObjectName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DbObjectType)
+            </td>
+            <td>
+                <a asp-page="./Save" asp-route-id="@item.Id">Save</a> |
+                <a asp-page="./Cancel" asp-route-id="@item.Id">Cancel</a> |
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -20,11 +20,11 @@ namespace SqlPackMan.Models
             [Description("P")]
             StoredProcedure = 2,
 
-            [Description("FN,FT,IF")]  // Where 
+            [Description("FN,FT,IF")]  
             Function=3,
 
-            [Description("Sequence")]
-            SQ =4
+            [Description("SQ")]
+            Sequence =4
         };
 
 
@@ -38,9 +38,6 @@ namespace SqlPackMan.Models
             Error,
             Success
         };
-
-        
-       
 
     }
 }

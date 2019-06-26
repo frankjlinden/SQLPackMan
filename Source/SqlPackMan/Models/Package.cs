@@ -15,6 +15,7 @@ namespace SqlPackMan.Models
         public int Id { get; set; }
 
         [StringLength(50)]
+        [Required]
         [DisplayName("Package Name")]
         public string Name { get; set; }
 
@@ -46,7 +47,11 @@ namespace SqlPackMan.Models
 
         [DisplayName("Max Env")]
         public DdsEnvironment MaxEnvironment { get; set; }
-        public Status Status { get; set; }
+        public Status Status
+        {
+            get => (Status)_statusId;
+            set => _statusId = (int)value;
+        }
         public ICollection<DbObject> Items { get; set; }
         public ICollection<Migration> Migrations { get; set; }
 

@@ -38,9 +38,7 @@ namespace SqlPackMan.Pages.DbObjects
             {
                 return NotFound();
             }
-           ViewData["DbObjectTypeId"] = new SelectList(_context.DbObjType, "Id", "Id");
-           ViewData["PackageId"] = new SelectList(_context.Package, "Id", "Id");
-           ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id");
+
             return Page();
         }
 
